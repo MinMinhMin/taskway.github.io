@@ -1,0 +1,82 @@
+---
+import { getCollection } from 'astro:content';
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import { UI, getMissingTranslations, SUPPORTED_LOCALES } from '../../lib/i18n.js';
+import { getLocalizedUrl } from '../../lib/urls.js';
+import { GROUPS } from '../../lib/navigation.js';
+
+export function getStaticPaths() {
+  return SUPPORTED_LOCALES.map((locale) => ({ params: { locale }, props: { locale } }));
+}
+
+type Locale = 'en' | 'vi';
+const locale = Astro.props.locale as Locale;
+const allDocs = await getCollection('docs');
+const byLocale = Object.fromEntries(SUPPORTED_LOCALES.map((language) => [language,
+  allDocs.filter((entry) => entry.id.startsWith(`${language}/`)).map((entry) => entry.data.translationKey),
+]));
+const missing = getMissingTranslations(byLocale);
+if (missing.length) throw new Error(`Missing translated documentation: ${missing.map(({ locale: language, slug }) => `${language}/${slug}`).join(', ')}`);
+const docs = allDocs.filter((entry) => entry.id.startsWith(`${locale}/`));
+const groups = GROUPS[locale];
+docs.sort((a, b) => groups.findIndex((group) => group.id === a.data.group) - groups.findIndex((group) => group.id === b.data.group) || a.data.order - b.data.order);
+const labels = UI[locale];
+const base = import.meta.env.BASE_URL;
+const appUrl = import.meta.env.PUBLIC_APP_URL;
+const compatibilityUrl = getLocalizedUrl(base, locale, '/docs/compatibility/');
+const quickstartUrl = getLocalizedUrl(base, locale, '/docs/quickstart/');
+const quickstart = locale === 'vi' ? 'Dùng SDK OpenAI chính thức với gateway của workspace' : 'Use the official OpenAI SDK with your workspace gateway';
+const intro = locale === 'vi' ? 'Một cổng API cho các yêu cầu AI của ứng dụng. Bắt đầu bằng API key dành riêng cho ứng dụng và chọn model theo chính sách định tuyến đã cấu hình.' : 'One API gateway for your application’s AI requests. Start with an application API key and let your configured routing policy choose an eligible model.';
+---
+<DocsLayout locale={locale} title="AI Agent Gateway Docs" description={intro} docs={docs} home={true}>
+  <div class="home-page" data-pagefind-body data-pagefind-filter={`locale:${locale}`}>
+    <div class="home-hero">
+      <div class="home-copy">
+        <div class="hero-kicker"><span class="kicker-dot"></span>{locale === 'vi' ? 'DÀNH CHO NHÀ PHÁT TRIỂN' : 'FOR DEVELOPERS'}</div>
+        <h1>{locale === 'vi' ? 'Đưa ứng dụng kết nối với AI Gateway' : 'Build with the AI Gateway'}</h1>
+        <p>{intro}</p>
+        <div class="hero-actions"><a class="button-primary" href={quickstartUrl}>{locale === 'vi' ? 'Bắt đầu' : 'Get started'} <span>→</span></a><a class="button-secondary" href={compatibilityUrl}>{locale === 'vi' ? 'Xem API hỗ trợ' : 'Explore the API'}</a>{appUrl && <a class="text-action" href={appUrl}>{labels.app} ↗</a>}</div>
+      </div>
+      <div class="hero-code">
+        <div class="code-window-bar"><span class="window-dot dot-a"></span><span class="window-dot dot-b"></span><span class="window-dot dot-c"></span><span>quickstart.py</span><span class="live-tag">v1</span></div>
+        <pre><code><span class="syntax-purple">import</span> os
+<span class="syntax-purple">from</span> uuid <span class="syntax-purple">import</span> uuid4
+<span class="syntax-purple">from</span> openai <span class="syntax-purple">import</span> OpenAI
+
+client = OpenAI(
+    api_key=os.environ[<span class="syntax-green">"AI_GATEWAY_API_KEY"</span>],
+    base_url=os.environ[<span class="syntax-green">"AI_GATEWAY_BASE_URL"</span>],
+)
+request_id = str(uuid4())
+
+completion = client.chat.completions.create(
+    model=<span class="syntax-green">"auto"</span>,
+    messages=[dict(role=<span class="syntax-green">"user"</span>, content=<span class="syntax-green">"Hello, gateway!"</span>)],
+    extra_headers=dict([(<span class="syntax-green">"Idempotency-Key"</span>, request_id)]),
+)
+
+<span class="syntax-muted"># completion.choices[0].message.content</span></code></pre>
+        <div class="code-window-footer"><span class="live-indicator"></span>{locale === 'vi' ? 'Ví dụ minh họa — hãy tạo key riêng trong workspace' : 'Example only — create your own key in the workspace'}</div>
+      </div>
+    </div>
+
+    <div class="home-announcement"><span class="announcement-icon">i</span><p>{locale === 'vi' ? 'Gateway hỗ trợ một phần OpenAI API. Đọc bảng tương thích để biết model, tham số và tính năng nào khả dụng.' : 'The gateway supports a defined subset of the OpenAI API. Check the compatibility guide for available models, parameters, and features.'}</p><a href={compatibilityUrl}>{locale === 'vi' ? 'Xem tương thích' : 'Read compatibility'} →</a></div>
+
+    <section class="home-section">
+      <div class="home-section-heading"><div><span class="section-index">01</span><div><p class="section-kicker">{locale === 'vi' ? 'BẮT ĐẦU NHANH' : 'GET STARTED'}</p><h2>{locale === 'vi' ? 'Gửi yêu cầu đầu tiên' : 'Make your first request'}</h2></div></div><a href={quickstartUrl}>{locale === 'vi' ? 'Mở hướng dẫn' : 'Open quickstart'} ↗</a></div>
+      <div class="home-card-grid">
+        <a class="home-doc-card" href={quickstartUrl}><span class="card-glyph terminal-glyph">›_</span><div><h3>{locale === 'vi' ? 'Quickstart' : 'Quickstart'}</h3><p>{quickstart}</p></div><span class="card-arrow">↗</span></a>
+        {docs.filter((doc) => doc.data.group === 'get-started' && doc.data.translationKey !== 'quickstart').slice(0, 1).map((doc) => <a class="home-doc-card" href={getLocalizedUrl(base, locale, `/docs/${doc.data.translationKey}/`)}><span class="card-glyph lock-glyph">◇</span><div><h3>{doc.data.title}</h3><p>{doc.data.description}</p></div><span class="card-arrow">↗</span></a>)}
+        {docs.filter((doc) => doc.data.translationKey === 'models-routing').map((doc) => <a class="home-doc-card" href={getLocalizedUrl(base, locale, '/docs/models-routing/')}><span class="card-glyph route-glyph">⌁</span><div><h3>{doc.data.title}</h3><p>{doc.data.description}</p></div><span class="card-arrow">↗</span></a>)}
+      </div>
+    </section>
+
+    <section class="home-section api-section">
+      <div class="home-section-heading"><div><span class="section-index">02</span><div><p class="section-kicker">{locale === 'vi' ? 'BỀ MẶT API' : 'API SURFACE'}</p><h2>{locale === 'vi' ? 'Chọn cách gọi API phù hợp' : 'Choose an API for your task'}</h2></div></div></div>
+      <div class="api-card-grid">
+        {['chat-completions', 'responses', 'embeddings', 'files'].map((slug) => { const doc = docs.find((entry) => entry.data.translationKey === slug); return doc && <a class="api-card" href={getLocalizedUrl(base, locale, `/docs/${slug}/`)}><span class="api-method">{slug === 'files' ? 'POST · GET · DELETE' : 'POST'}</span><code>/v1/{slug === 'chat-completions' ? 'chat/completions' : slug}</code><span class="api-card-title">{doc.data.title}</span><span class="api-card-desc">{doc.data.description}</span><span class="api-card-arrow">↗</span></a>; })}
+      </div>
+    </section>
+    <p class="home-footer-note">{locale === 'vi' ? 'Bài hướng dẫn có nội dung tiếng Việt được biên soạn tự nhiên và đối chiếu với cùng một contract API.' : 'All guides follow the same verified gateway API contract.'}</p>
+  </div>
+</DocsLayout>

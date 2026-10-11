@@ -1,0 +1,124 @@
+---
+import '../styles/tokens.css';
+import '../styles/docs.css';
+import Mark from '../components/Mark.astro';
+import type { CollectionEntry } from 'astro:content';
+import { GROUPS } from '../lib/navigation.js';
+import { UI } from '../lib/i18n.js';
+import { getLocalizedUrl, getCanonicalUrl } from '../lib/urls.js';
+
+type Locale = 'en' | 'vi';
+type Section = { id: string; label: string };
+type Props = {
+  locale: Locale;
+  title: string;
+  description: string;
+  currentSlug?: string;
+  sections?: Section[];
+  docs?: CollectionEntry<'docs'>[];
+  home?: boolean;
+};
+const { locale, title, description, currentSlug = '', sections = [], docs = [], home = false } = Astro.props as Props;
+const labels = UI[locale];
+const groups = GROUPS[locale];
+const base = import.meta.env.BASE_URL;
+const appUrl = import.meta.env.PUBLIC_APP_URL;
+const docsRepository = import.meta.env.PUBLIC_DOCS_REPOSITORY;
+const docsPath = (import.meta.env.PUBLIC_DOCS_PATH || 'sdk_tutorial_github_pages').replace(/^\/+|\/+$/g, '');
+const sortedDocs = [...docs].sort((a, b) => groups.findIndex((group) => group.id === a.data.group) - groups.findIndex((group) => group.id === b.data.group) || a.data.order - b.data.order);
+const navByGroup = groups.map((group) => ({
+  ...group,
+  items: sortedDocs.filter((doc) => doc.data.group === group.id),
+}));
+const currentIndex = sortedDocs.findIndex((doc) => doc.id === `${locale}/${currentSlug}`);
+const previous = currentIndex > 0 ? sortedDocs[currentIndex - 1] : null;
+const next = currentIndex >= 0 ? sortedDocs[currentIndex + 1] : null;
+const docUrl = (slug: string, language: Locale = locale) => getLocalizedUrl(base, language, `/docs/${slug}/`);
+const englishUrl = getLocalizedUrl(base, 'en', currentSlug ? `/docs/${currentSlug}/` : '/');
+const vietnameseUrl = getLocalizedUrl(base, 'vi', currentSlug ? `/docs/${currentSlug}/` : '/');
+const searchBundle = `${base}pagefind-${locale}/`;
+const canonicalURL = getCanonicalUrl(import.meta.env.PUBLIC_SITE_URL, base, Astro.url.pathname);
+---
+<!doctype html>
+<html lang={locale} data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#f7f7fc" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+    {canonicalURL && <link rel="canonical" href={canonicalURL} />}
+    <title>{title} · AI Agent Gateway Docs</title>
+    <script is:inline define:vars={{ locale }}>
+      try {
+        const saved = localStorage.getItem('gateway-docs-theme');
+        if (saved === 'dark' || saved === 'light') document.documentElement.dataset.theme = saved;
+      } catch {}
+      document.documentElement.dataset.locale = locale;
+    </script>
+  </head>
+  <body data-locale={locale} data-base={base} data-search-bundle={searchBundle} data-root-url={getLocalizedUrl(base, locale, '/')}
+    data-app-url={appUrl || ''}>
+    <a class="skip-link" href="#main">{locale === 'vi' ? 'Bỏ qua phần điều hướng' : 'Skip to content'}</a>
+    <header class="topbar">
+      <a class="brand" href={getLocalizedUrl(base, locale, '/')} aria-label="AI Agent Gateway Docs">
+        <Mark /><span class="brand-copy"><strong>AI Agent Gateway</strong><small>{locale === 'vi' ? 'Tài liệu dành cho nhà phát triển' : 'Developer documentation'}</small></span>
+      </a>
+      <div class="topbar-actions">
+        <form id="search-form" class="search-form" role="search" aria-label={labels.search}>
+          <span class="search-glyph" aria-hidden="true">⌕</span>
+          <input id="search-input" type="search" name="q" placeholder={labels.searchHint} autocomplete="off" aria-label={labels.search} />
+          <kbd>⌘ K</kbd>
+        </form>
+        <div class="language-switch" aria-label={labels.selectLanguage}>
+          <a href={englishUrl} aria-current={locale === 'en' ? 'page' : undefined}>EN</a>
+          <span aria-hidden="true">/</span>
+          <a href={vietnameseUrl} aria-current={locale === 'vi' ? 'page' : undefined}>VI</a>
+        </div>
+        <button class="icon-button theme-button" type="button" data-theme-toggle aria-label={labels.theme} title={labels.theme}>
+          <svg class="theme-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+          <svg class="theme-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.9 13A8.5 8.5 0 0 1 11 3.1 8.5 8.5 0 1 0 20.9 13Z"/></svg>
+        </button>
+        {appUrl && <a class="app-link" href={appUrl}>{labels.app}<span aria-hidden="true">↗</span></a>}
+        <button class="icon-button menu-button" type="button" data-menu-toggle aria-label={labels.menu} aria-expanded="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </header>
+    <div class="page-grid">
+      <aside class="sidebar" data-sidebar>
+        <div class="sidebar-heading">
+          <a class="all-docs-link" href={getLocalizedUrl(base, locale, '/')}>{locale === 'vi' ? 'Tài liệu' : 'Documentation'}<span>⌄</span></a>
+        </div>
+        <nav class="sidebar-nav" aria-label={locale === 'vi' ? 'Danh mục tài liệu' : 'Documentation'}>
+          {navByGroup.map((group) => <section class="nav-group"><h2>{group.title}</h2>
+            {group.items.map((doc) => <a class:list={['nav-link', { active: currentSlug === doc.data.translationKey }]} href={docUrl(doc.data.translationKey)} aria-current={currentSlug === doc.data.translationKey ? 'page' : undefined}>{doc.data.title}</a>)}
+          </section>)}
+        </nav>
+        <footer class="sidebar-footer"><span class="status-dot"></span><span>{locale === 'vi' ? 'API gateway' : 'Gateway API'}</span><span class="version-tag">v1</span></footer>
+      </aside>
+      <main id="main" class:list={['main-column', { 'home-main': home }]}>
+        {home ? <slot /> : <>
+          <article class="article" data-pagefind-body data-pagefind-filter={`locale:${locale}`}>
+            <nav class="breadcrumbs" aria-label={locale === 'vi' ? 'Đường dẫn' : 'Breadcrumbs'}>
+              <a href={getLocalizedUrl(base, locale, '/')}>{locale === 'vi' ? 'Tài liệu' : 'Docs'}</a><span>/</span><span>{title}</span>
+            </nav>
+            <header class="article-header"><p class="article-eyebrow">{groups.find((group) => docs.find((doc) => doc.id === `${locale}/${currentSlug}`)?.data.group === group.id)?.title}</p><h1>{title}</h1><p class="article-description">{description}</p></header>
+            <div class="article-content"><slot /></div>
+            {docsRepository && <a class="edit-link" href={`${docsRepository.replace(/\/$/, '')}/edit/main/${docsPath ? `${docsPath}/` : ''}src/content/docs/${locale}/${currentSlug}.md`}>{labels.editOnGithub} ↗</a>}
+            <nav class="article-pagination" aria-label={locale === 'vi' ? 'Điều hướng bài viết' : 'Page navigation'}>
+              {previous ? <a class="pagination-link prev" href={docUrl(previous.data.translationKey)}><span>← {labels.previous}</span><strong>{previous.data.title}</strong></a> : <span></span>}
+              {next ? <a class="pagination-link next" href={docUrl(next.data.translationKey)}><span>{labels.next} →</span><strong>{next.data.title}</strong></a> : <span></span>}
+            </nav>
+          </article>
+          {sections.length > 0 && <aside class="toc" aria-label={labels.onThisPage}><p>{labels.onThisPage}</p><nav>{sections.map((section) => <a href={`#${section.id}`}>{section.label}</a>)}</nav></aside>}
+        </>}
+      </main>
+      <section id="search-results" class="search-results" aria-live="polite" aria-label={labels.search} hidden></section>
+    </div>
+    <script>
+      import '../scripts/docs.js';
+    </script>
+  </body>
+</html>

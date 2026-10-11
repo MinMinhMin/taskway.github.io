@@ -1,0 +1,7 @@
+---
+import DocsLayout from '../layouts/DocsLayout.astro';
+const base = import.meta.env.BASE_URL;
+---
+<DocsLayout locale="en" title="Page not found" description="This page does not exist." home={true}>
+  <div class="not-found"><p class="article-eyebrow">404 · PAGE NOT FOUND</p><h1>This page could not be found.</h1><p>Try the documentation home or switch to the other language.</p><div class="hero-actions"><a class="button-primary" href={`${base}en/`}>English docs →</a><a class="button-secondary" href={`${base}vi/`}>Tài liệu tiếng Việt →</a></div></div>
+</DocsLayout>

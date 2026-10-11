@@ -1,0 +1,44 @@
+---
+import { getCollection, render } from 'astro:content';
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import { SUPPORTED_LOCALES, getMissingTranslations } from '../../../lib/i18n.js';
+import { getLocalizedUrl } from '../../../lib/urls.js';
+
+export async function getStaticPaths() {
+  const docs = await getCollection('docs');
+  const slugsByLocale = Object.fromEntries(SUPPORTED_LOCALES.map((locale) => [locale,
+    docs.filter((entry) => entry.id.startsWith(`${locale}/`)).map((entry) => entry.data.translationKey),
+  ]));
+  const missing = getMissingTranslations(slugsByLocale);
+  if (missing.length) throw new Error(`Missing translated documentation: ${missing.map(({ locale, slug }) => `${locale}/${slug}`).join(', ')}`);
+  return docs.map((entry) => {
+    const [locale, ...slug] = entry.id.split('/');
+    if (!SUPPORTED_LOCALES.includes(locale) || !slug.length) throw new Error(`Invalid documentation content id: ${entry.id}`);
+    if (entry.data.translationKey !== slug.join('/')) throw new Error(`translationKey must match the page path: ${entry.id}`);
+    return { params: { locale, slug: slug.join('/') }, props: { entry } };
+  });
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const locale = entry.id.split('/')[0] as 'en' | 'vi';
+const allDocs = await getCollection('docs');
+const { data } = entry;
+const base = import.meta.env.BASE_URL;
+const appUrl = import.meta.env.PUBLIC_APP_URL;
+const sibling = allDocs.find((doc) => doc.data.translationKey === data.translationKey && doc.data.locale === (locale === 'en' ? 'vi' : 'en'));
+const compatibility = getLocalizedUrl(base, locale, '/docs/compatibility/');
+---
+<DocsLayout locale={locale} title={data.title} description={data.description} currentSlug={data.translationKey} sections={data.sections} docs={allDocs.filter((doc) => doc.data.locale === locale)}>
+  <Fragment>
+    <div class="reading-tools" data-reading-tools>
+      <div class="language-note"><span class="language-note-icon">文</span><p>{locale === 'vi' ? 'Bản tiếng Việt được biên soạn riêng để hướng dẫn tự nhiên, dễ theo dõi.' : 'This guide has an independently written Vietnamese edition.'} {sibling && <a href={getLocalizedUrl(base, sibling.data.locale, `/docs/${sibling.data.translationKey}/`)} data-language-link>{locale === 'vi' ? 'Đọc bằng English' : 'Đọc bằng Tiếng Việt'}</a>}</p></div>
+      <span class="updated-note">{locale === 'vi' ? 'Tài liệu SDK · API v1' : 'SDK documentation · API v1'}</span>
+    </div>
+    <div class="article-copy" data-pagefind-body>
+      {locale === 'vi' && <Fragment><p class="eyebrow-note">{locale === 'vi' ? 'THÔNG TIN TƯƠNG THÍCH' : 'COMPATIBILITY NOTE'} · <a href={compatibility}>{locale === 'vi' ? 'Bảng tương thích' : 'Compatibility guide'}</a></p></Fragment>}
+      {appUrl && <p class="eyebrow-note">{locale === 'vi' ? 'API GATEWAY' : 'GATEWAY API'}: <a href={appUrl}>{appUrl}</a></p>}
+      <Content />
+    </div>
+  </Fragment>
+</DocsLayout>
