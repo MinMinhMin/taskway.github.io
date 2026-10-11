@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="75 198 400 400" role="img" aria-labelledby="title desc">
+  <title id="title">Taskway</title>
+  <desc id="desc">Taskway's blue-to-violet T icon.</desc>
+  <defs>
+    <linearGradient id="top" x1="105" y1="320" x2="443" y2="205" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#168cff" />
+      <stop offset="1" stop-color="#a22bfd" />
+    </linearGradient>
+    <linearGradient id="mid" x1="165" y1="447" x2="329" y2="339" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#168bff" />
+      <stop offset="1" stop-color="#7550fe" />
+    </linearGradient>
+    <linearGradient id="low" x1="185" y1="562" x2="355" y2="460" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#00b9ff" />
+      <stop offset="1" stop-color="#6b55fd" />
+    </linearGradient>
+  </defs>
+  <g fill-rule="evenodd">
+    <path d="M89,295,90,307,94,315,100,320,108,323,411,322,423,318,434,311,449,291,454,274,454,225,451,219,442,213,137,214,115,224,98,242,90,263Z" fill="url(#top)" />
+    <path d="M169,374,167,382,167,432,170,440,177,447,184,450,305,450,323,442,332,433,339,419,340,360,336,352,325,344,205,343,197,345,181,355Z" fill="url(#mid)" />
+    <path d="M188,492,184,507,184,555,189,566,198,572,328,573,338,570,344,566,352,554,353,485,349,476,341,470,335,468,221,468,210,471,200,477Z" fill="url(#low)" />
+  </g>
+</svg>

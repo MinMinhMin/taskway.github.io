@@ -1,7 +1,6 @@
 ---
 import '../styles/tokens.css';
 import '../styles/docs.css';
-import Mark from '../components/Mark.astro';
 import type { CollectionEntry } from 'astro:content';
 import { GROUPS } from '../lib/navigation.js';
 import { UI } from '../lib/i18n.js';
@@ -47,9 +46,9 @@ const canonicalURL = getCanonicalUrl(import.meta.env.PUBLIC_SITE_URL, base, Astr
     <meta name="color-scheme" content="light dark" />
     <meta name="theme-color" content="#f7f7fc" />
     <meta name="description" content={description} />
-    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+    <link rel="icon" type="image/svg+xml" href={`${base}icon.svg`} />
     {canonicalURL && <link rel="canonical" href={canonicalURL} />}
-    <title>{title} · AI Agent Gateway Docs</title>
+    <title>{title} · Taskway Docs</title>
     <script is:inline define:vars={{ locale }}>
       try {
         const saved = localStorage.getItem('gateway-docs-theme');
@@ -62,8 +61,8 @@ const canonicalURL = getCanonicalUrl(import.meta.env.PUBLIC_SITE_URL, base, Astr
     data-app-url={appUrl || ''}>
     <a class="skip-link" href="#main">{locale === 'vi' ? 'Bỏ qua phần điều hướng' : 'Skip to content'}</a>
     <header class="topbar">
-      <a class="brand" href={getLocalizedUrl(base, locale, '/')} aria-label="AI Agent Gateway Docs">
-        <Mark /><span class="brand-copy"><strong>AI Agent Gateway</strong><small>{locale === 'vi' ? 'Tài liệu dành cho nhà phát triển' : 'Developer documentation'}</small></span>
+      <a class="brand" href={getLocalizedUrl(base, locale, '/')} aria-label="Taskway Docs">
+        <img class="brand-logo" src={`${base}Taskway_logo_final.svg`} alt="Taskway" />
       </a>
       <div class="topbar-actions">
         <form id="search-form" class="search-form" role="search" aria-label={labels.search}>

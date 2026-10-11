@@ -1,6 +1,6 @@
 ---
 title: Overview
-description: How the AI Agent Gateway connects your application to configured AI models through an OpenAI-compatible API.
+description: How Taskway connects your application to configured AI models through an OpenAI-compatible API.
 locale: en
 translationKey: overview
 group: get-started
@@ -16,7 +16,7 @@ sections:
 
 <h2 id="what-it-does">What the gateway does</h2>
 
-The AI Agent Gateway gives an application one API endpoint for working with models configured in your workspace. It authenticates with an **application API key**, checks which models and settings are available to that application, then routes the request through the gateway.
+Taskway gives an application one API endpoint for working with models configured in your workspace. It authenticates with an **application API key**, checks which models and settings are available to that application, then routes the request through the gateway.
 
 The API accepts familiar OpenAI SDK calls at a base URL ending in `/v1`. The gateway controls model eligibility, routing, usage recording, and request replay. A key for one application cannot read another application's Files or saved Responses.
 

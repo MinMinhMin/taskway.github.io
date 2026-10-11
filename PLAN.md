@@ -1,10 +1,10 @@
-# Kế hoạch website SDK Docs — AI Agent Gateway
+# Kế hoạch website SDK Docs — Taskway
 
 Ngày: 11/10/2026. Trạng thái: đã được duyệt; website tĩnh và nội dung đã triển khai trong folder; chưa deploy.
 
 ## Mục tiêu và phạm vi
 
-Xây dựng website tài liệu để người dùng của AI Agent Gateway tự tạo application/key, cấu hình OpenAI SDK và gọi đúng API của gateway. Bố cục tham khảo OpenAI API Docs; nhận diện giao diện theo dự án hiện tại. Toàn bộ mã nguồn website nằm trong `sdk_tutorial_github_pages/`, build ra site tĩnh để người dùng tự deploy bằng GitHub Pages.
+Xây dựng website tài liệu để người dùng của Taskway tự tạo application/key, cấu hình OpenAI SDK và gọi đúng API của gateway. Bố cục tham khảo OpenAI API Docs; nhận diện giao diện theo dự án hiện tại. Toàn bộ mã nguồn website nằm trong `sdk_tutorial_github_pages/`, build ra site tĩnh để người dùng tự deploy bằng GitHub Pages.
 
 Kế hoạch bao gồm nội dung, giao diện, ví dụ SDK, kiểm chứng và hướng dẫn deploy. Không thay đổi backend để làm cho ví dụ chạy được. Khi phát hiện khác biệt giữa tài liệu và implementation, sửa tài liệu theo contract đã kiểm chứng và ghi lại vấn đề backend nếu có.
 
@@ -45,7 +45,7 @@ Mỗi bài có hai URL tĩnh: `<base>/en/docs/<slug>/` và `<base>/vi/docs/<slug
 
 ## 3. Giao diện và hành trình đọc
 
-- Header: logo AI Agent Gateway, nhãn Docs, search, bộ chọn English / Tiếng Việt, theme toggle và link quay về ứng dụng qua URL cấu hình.
+- Header: logo Taskway, nhãn Docs, search, bộ chọn English / Tiếng Việt, theme toggle và link quay về ứng dụng qua URL cấu hình.
 - Desktop: sidebar nhóm tài liệu bên trái, bài viết ở giữa, mục lục bài viết bên phải. Bài dài có previous/next và anchor cho từng heading.
 - Mobile: sidebar dạng drawer, search dùng được bằng bàn phím, mục lục thu gọn; code và bảng cuộn trong vùng riêng.
 - Kế thừa logo SVG từ `gateway-mark.tsx`, bộ màu light/dark, font stack, border và radius từ `workspace-ui.css`; chuyển thành token cục bộ cho docs, không import toàn bộ CSS ứng dụng.
@@ -105,7 +105,8 @@ sdk_tutorial_github_pages/
   .gitignore
   .env.example
   public/
-    favicon.svg
+    Taskway_logo_final.svg
+    icon.svg
     .nojekyll
   src/
     content.config.mjs

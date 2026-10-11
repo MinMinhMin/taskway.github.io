@@ -1,6 +1,6 @@
 ---
 title: Tổng quan
-description: Cách AI Agent Gateway kết nối ứng dụng với các mô hình AI đã được cấu hình thông qua API tương thích một phần với OpenAI.
+description: Cách Taskway kết nối ứng dụng với các mô hình AI đã được cấu hình thông qua API tương thích một phần với OpenAI.
 locale: vi
 translationKey: overview
 group: get-started
@@ -16,7 +16,7 @@ sections:
 
 <h2 id="what-it-does">Gateway giúp gì cho ứng dụng</h2>
 
-AI Agent Gateway cung cấp cho mỗi ứng dụng một địa chỉ API thống nhất để làm việc với các mô hình trong workspace. Khi nhận yêu cầu, Gateway xác thực bằng **API key của ứng dụng**, kiểm tra ứng dụng được phép dùng mô hình và tham số nào, rồi định tuyến yêu cầu.
+Taskway cung cấp cho mỗi ứng dụng một địa chỉ API thống nhất để làm việc với các mô hình trong workspace. Khi nhận yêu cầu, hệ thống xác thực bằng **API key của ứng dụng**, kiểm tra ứng dụng được phép dùng mô hình và tham số nào, rồi định tuyến yêu cầu.
 
 API sử dụng cách gọi quen thuộc của OpenAI SDK và có địa chỉ cơ sở kết thúc bằng `/v1`. Gateway kiểm soát mô hình nào đủ điều kiện xử lý, cách định tuyến và ghi nhận mức sử dụng. Mỗi key chỉ truy cập được Files và Responses đã lưu của ứng dụng tương ứng.
 
