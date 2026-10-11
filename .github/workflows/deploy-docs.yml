@@ -26,6 +26,7 @@ jobs:
         with:
           path: .
           build-cmd: npm test && npm run check && npm run build
+          cache: false
         env:
           SITE_BASE_PATH: ${{ github.event.repository.name }}
           PUBLIC_SITE_URL: https://${{ github.repository_owner }}.github.io
