@@ -2,8 +2,8 @@ import { randomUUID } from "node:crypto";
 import OpenAI from "openai";
 
 const client = new OpenAI({
-  apiKey: process.env.AI_GATEWAY_API_KEY,
-  baseURL: process.env.AI_GATEWAY_BASE_URL,
+  apiKey: process.env.TASKWAY_API_KEY,
+  baseURL: process.env.TASKWAY_BASE_URL,
 });
 
 const first = await client.responses.create(

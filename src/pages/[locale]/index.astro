@@ -44,8 +44,8 @@ const intro = locale === 'vi' ? 'Một cổng API cho các yêu cầu AI của �
 <span class="syntax-purple">from</span> openai <span class="syntax-purple">import</span> OpenAI
 
 client = OpenAI(
-    api_key=os.environ[<span class="syntax-green">"AI_GATEWAY_API_KEY"</span>],
-    base_url=os.environ[<span class="syntax-green">"AI_GATEWAY_BASE_URL"</span>],
+    api_key=os.environ[<span class="syntax-green">"TASKWAY_API_KEY"</span>],
+    base_url=os.environ[<span class="syntax-green">"TASKWAY_BASE_URL"</span>],
 )
 request_id = str(uuid4())
 

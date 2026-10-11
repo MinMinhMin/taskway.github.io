@@ -43,11 +43,11 @@ Use the AI service URL, including `/v1`. The value below is for local developmen
 On macOS/Linux, export the values in the shell where you run the example:
 
 ```sh
-export AI_GATEWAY_BASE_URL="http://localhost:8001/v1"
-export AI_GATEWAY_API_KEY="your_application_key"
+export TASKWAY_BASE_URL="http://localhost:8001/v1"
+export TASKWAY_API_KEY="your_application_key"
 ```
 
-In PowerShell, use `$env:AI_GATEWAY_BASE_URL="http://localhost:8001/v1"` and `$env:AI_GATEWAY_API_KEY="your_application_key"`.
+In PowerShell, use `$env:TASKWAY_BASE_URL="http://localhost:8001/v1"` and `$env:TASKWAY_API_KEY="your_application_key"`.
 
 Do not add the key to a web page, browser JavaScript bundle, public repository, or a frontend environment variable exposed to browsers. Keep it in your server's secret store.
 

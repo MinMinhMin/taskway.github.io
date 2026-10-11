@@ -4,8 +4,8 @@ from uuid import uuid4
 from openai import APITimeoutError, OpenAI
 
 client = OpenAI(
-    api_key=os.environ["AI_GATEWAY_API_KEY"],
-    base_url=os.environ["AI_GATEWAY_BASE_URL"],
+    api_key=os.environ["TASKWAY_API_KEY"],
+    base_url=os.environ["TASKWAY_BASE_URL"],
 )
 
 # Keep this value outside the retry attempt so both sends have the same key.
