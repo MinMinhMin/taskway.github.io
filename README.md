@@ -1,4 +1,4 @@
-# Taskway SDK documentation
+# Taskway SDK documentation.
 
 This folder is a self-contained static documentation site for Taskway. It builds English and Vietnamese guides, and can be deployed to a GitHub Pages project site or a custom domain. The Vietnamese edition is written for Vietnamese readers and follows the same verified API contract as the English edition.
 
