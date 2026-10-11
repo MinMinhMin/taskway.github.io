@@ -62,7 +62,8 @@ const canonicalURL = getCanonicalUrl(import.meta.env.PUBLIC_SITE_URL, base, Astr
     <a class="skip-link" href="#main">{locale === 'vi' ? 'Bỏ qua phần điều hướng' : 'Skip to content'}</a>
     <header class="topbar">
       <a class="brand" href={getLocalizedUrl(base, locale, '/')} aria-label="Taskway Docs">
-        <img class="brand-logo" src={`${base}Taskway_logo_final.svg`} alt="Taskway" />
+        <img class="brand-logo brand-logo-light" src={`${base}Taskway_logo_final.svg`} alt="Taskway" />
+        <img class="brand-logo brand-logo-dark" src={`${base}Taskway_logo_final_dark.svg`} alt="" aria-hidden="true" />
       </a>
       <div class="topbar-actions">
         <form id="search-form" class="search-form" role="search" aria-label={labels.search}>

@@ -106,6 +106,7 @@ sdk_tutorial_github_pages/
   .env.example
   public/
     Taskway_logo_final.svg
+    Taskway_logo_final_dark.svg
     icon.svg
     .nojekyll
   src/
