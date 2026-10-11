@@ -105,14 +105,16 @@ const canonicalURL = getCanonicalUrl(import.meta.env.PUBLIC_SITE_URL, base, Astr
               <a href={getLocalizedUrl(base, locale, '/')}>{locale === 'vi' ? 'Tài liệu' : 'Docs'}</a><span>/</span><span>{title}</span>
             </nav>
             <header class="article-header"><p class="article-eyebrow">{groups.find((group) => docs.find((doc) => doc.id === `${locale}/${currentSlug}`)?.data.group === group.id)?.title}</p><h1>{title}</h1><p class="article-description">{description}</p></header>
-            <div class="article-content"><slot /></div>
+            <div class="article-layout">
+              <div class="article-content"><slot /></div>
+              {sections.length > 0 && <aside class="toc" aria-label={labels.onThisPage}><p>{labels.onThisPage}</p><nav>{sections.map((section) => <a href={`#${section.id}`}>{section.label}</a>)}</nav></aside>}
+            </div>
             {docsRepository && <a class="edit-link" href={`${docsRepository.replace(/\/$/, '')}/edit/main/${docsPath ? `${docsPath}/` : ''}src/content/docs/${locale}/${currentSlug}.md`}>{labels.editOnGithub} ↗</a>}
             <nav class="article-pagination" aria-label={locale === 'vi' ? 'Điều hướng bài viết' : 'Page navigation'}>
               {previous ? <a class="pagination-link prev" href={docUrl(previous.data.translationKey)}><span>← {labels.previous}</span><strong>{previous.data.title}</strong></a> : <span></span>}
               {next ? <a class="pagination-link next" href={docUrl(next.data.translationKey)}><span>{labels.next} →</span><strong>{next.data.title}</strong></a> : <span></span>}
             </nav>
           </article>
-          {sections.length > 0 && <aside class="toc" aria-label={labels.onThisPage}><p>{labels.onThisPage}</p><nav>{sections.map((section) => <a href={`#${section.id}`}>{section.label}</a>)}</nav></aside>}
         </>}
       </main>
       <section id="search-results" class="search-results" aria-live="polite" aria-label={labels.search} hidden></section>
