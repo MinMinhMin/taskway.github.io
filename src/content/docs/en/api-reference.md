@@ -24,7 +24,7 @@ sections:
 
 <h2 id="base-url-authentication">Base URL and authentication</h2>
 
-Set the SDK base URL to the AI service origin plus `/v1`, for example `http://localhost:8001/v1` for local development. Authenticate each request with `Authorization: Bearer <application-key>`. Provider keys and user-login tokens are not SDK credentials.
+Set the SDK base URL to `https://taskway-ai-be.online/v1`. Authenticate each request with `Authorization: Bearer <application-key>`. Provider keys and user-login tokens are not SDK credentials.
 
 <h2 id="models">Models</h2>
 

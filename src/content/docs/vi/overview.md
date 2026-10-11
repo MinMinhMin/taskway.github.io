@@ -30,6 +30,6 @@ Với yêu cầu sinh nội dung, SDK gửi dữ liệu cùng `Idempotency-Key` 
 - Model pool của application có ít nhất một mô hình và nhà cung cấp mà Gateway có thể sử dụng.
 - Quyền tạo API key, hoặc một key do chủ application/quản trị viên cấp.
 - Một môi trường chạy ở phía máy chủ để giữ bí mật key.
-- Địa chỉ dịch vụ AI. Khi chạy local, địa chỉ này là `http://localhost:8001/v1`; hệ thống đã deploy có thể dùng host khác.
+- Base URL của Taskway: `https://taskway-ai-be.online/v1`.
 
 API chỉ hỗ trợ một phần tính năng của OpenAI. Xem [bảng tương thích](../compatibility/) trước khi áp dụng ví dụ cho ứng dụng hiện tại.

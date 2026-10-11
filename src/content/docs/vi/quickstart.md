@@ -38,16 +38,16 @@ npm install openai@7.30.1
 
 <h2 id="set-the-environment">Khai báo biến môi trường</h2>
 
-Địa chỉ cơ sở phải là URL của dịch vụ AI và có `/v1` ở cuối. Ví dụ dưới đây dùng cho môi trường local; khi kết nối đến Gateway đã deploy, thay bằng địa chỉ dịch vụ AI của tổ chức bạn.
+Đặt base URL theo endpoint Taskway bên dưới, gồm cả `/v1`. Nếu workspace của bạn dùng một bản triển khai khác, hãy thay bằng API URL của workspace đó.
 
 Trên macOS/Linux, export hai giá trị trong terminal sẽ chạy ví dụ:
 
 ```sh
-export TASKWAY_BASE_URL="http://localhost:8001/v1"
+export TASKWAY_BASE_URL="https://taskway-ai-be.online/v1"
 export TASKWAY_API_KEY="your_application_key"
 ```
 
-Với PowerShell, đặt `$env:TASKWAY_BASE_URL="http://localhost:8001/v1"` và `$env:TASKWAY_API_KEY="your_application_key"`.
+Với PowerShell, đặt `$env:TASKWAY_BASE_URL="https://taskway-ai-be.online/v1"` và `$env:TASKWAY_API_KEY="your_application_key"`.
 
 Không đưa key vào trang web, mã JavaScript chạy trong trình duyệt, repository công khai hay biến môi trường frontend được đưa xuống trình duyệt. Hãy lưu key trong secret store ở phía máy chủ.
 

@@ -24,7 +24,7 @@ sections:
 
 <h2 id="base-url-authentication">Base URL và xác thực</h2>
 
-Đặt base URL của SDK bằng host dịch vụ AI kèm `/v1`. Ví dụ local: `http://localhost:8001/v1`. Mỗi request cần `Authorization: Bearer <application-key>`. Không dùng provider key hoặc token đăng nhập làm thông tin xác thực SDK.
+Đặt base URL của SDK là `https://taskway-ai-be.online/v1`. Mỗi request cần `Authorization: Bearer <application-key>`. Không dùng provider key hoặc token đăng nhập làm thông tin xác thực SDK.
 
 <h2 id="models">Models</h2>
 

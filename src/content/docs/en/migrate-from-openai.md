@@ -20,7 +20,7 @@ sections:
 
 You can keep using the official OpenAI SDK for the endpoints in this guide. Point `base_url` (Python) or `baseURL` (Node) to the AI service origin plus `/v1`, and replace the provider key with an application API key. Keep the key on your server. The management website URL is not the API base URL unless it is configured to proxy `/v1`.
 
-For local development, use `http://localhost:8001/v1`. For a hosted workspace, ask its administrator for the AI service URL and an application key.
+For this Taskway deployment, use `https://taskway-ai-be.online/v1` as the base URL. If you use a different workspace, ask its administrator for that workspace's API URL and an application key.
 
 <h2 id="review-model-and-request-behavior">Review model and request behavior</h2>
 

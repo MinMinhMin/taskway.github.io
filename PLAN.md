@@ -16,7 +16,7 @@ Ngôn ngữ đã được người dùng yêu cầu: tiếng Anh và tiếng Vi�
 | --- | --- | --- |
 | Link cần thay thế | `here` đang trỏ đến `https://github.com/` | `ai20k-chat/src/components/gateway/sdk-guide-scene.tsx` |
 | Service | Management backend riêng; AI backend cung cấp runtime và OpenAI-compatible API | `ARCHITECTURE.md`, `src/backend_ai/main.py` |
-| SDK endpoint | Base URL kết thúc bằng `/v1`; local là `http://localhost:8001/v1` | AI routers, `README.md`, `deploy/nginx.conf` |
+| SDK endpoint | `https://taskway-ai-be.online/v1` | AI routers, `README.md`, `deploy/nginx.conf` |
 | Authentication | Bearer application API key; khác token đăng nhập và provider credential | `src/backend_ai/dependencies/openai_auth.py` |
 | API hiện có | Models list/retrieve; Chat Completions create; Responses create/retrieve/delete; Embeddings create; Files upload/list/retrieve/content/delete | `src/backend_ai/routers/openai_*.py` |
 | Routing | `auto`, `auto:cheap`, `auto:quality`, `auto:fast`, `auto:code`; có thể ghim model cụ thể theo quyền/cấu hình application | `src/backend_ai/gateway/model_alias.py`, `openai_model_service.py` |
