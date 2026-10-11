@@ -24,7 +24,7 @@ jobs:
       - name: Build and upload the static site
         uses: withastro/action@v6
         with:
-          path: sdk_tutorial_github_pages
+          path: .
           build-cmd: npm test && npm run check && npm run build
         env:
           SITE_BASE_PATH: ${{ github.event.repository.name }}
