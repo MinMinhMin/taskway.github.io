@@ -43,11 +43,11 @@ Use Taskway's API URL, including `/v1`. If your workspace uses a different deplo
 On macOS/Linux, export the values in the shell where you run the example:
 
 ```sh
-export TASKWAY_BASE_URL="https://taskway-ai-be.onrender.com/v1"
+export TASKWAY_BASE_URL="https://taskway-ai-be.online/v1"
 export TASKWAY_API_KEY="your_application_key"
 ```
 
-In PowerShell, use `$env:TASKWAY_BASE_URL="https://taskway-ai-be.onrender.com/v1"` and `$env:TASKWAY_API_KEY="your_application_key"`.
+In PowerShell, use `$env:TASKWAY_BASE_URL="https://taskway-ai-be.online/v1"` and `$env:TASKWAY_API_KEY="your_application_key"`.
 
 Do not add the key to a web page, browser JavaScript bundle, public repository, or a frontend environment variable exposed to browsers. Keep it in your server's secret store.
 

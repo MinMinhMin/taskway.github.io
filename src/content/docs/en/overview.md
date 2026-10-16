@@ -30,6 +30,6 @@ For a generation request, the SDK sends the request and its `Idempotency-Key` to
 - An active application model pool with at least one model and provider the gateway can use.
 - Permission to create an application key, or a key issued to you by your workspace administrator.
 - A server environment where the key can be kept private.
-- Taskway's API base URL: `https://taskway-ai-be.onrender.com/v1`.
+- Taskway's API base URL: `https://taskway-ai-be.online/v1`.
 
 The API compatibility profile is narrower than the full OpenAI API. Start with the [compatibility guide](../compatibility/) to see which operations and parameters are supported.

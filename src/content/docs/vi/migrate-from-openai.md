@@ -20,7 +20,7 @@ sections:
 
 Với những endpoint có trong hướng dẫn này, bạn vẫn dùng OpenAI SDK chính thức. Đổi `base_url` (Python) hoặc `baseURL` (Node) sang host dịch vụ AI kèm `/v1`, rồi thay provider key bằng API key của application. Hãy giữ key ở máy chủ. URL giao diện quản trị không phải API base URL, trừ khi hệ thống được cấu hình để chuyển tiếp các request `/v1`.
 
-Với bản triển khai Taskway này, dùng `https://taskway-ai-be.onrender.com/v1` làm base URL. Nếu dùng workspace khác, hãy hỏi quản trị viên API URL và application key của workspace đó.
+Với bản triển khai Taskway này, dùng `https://taskway-ai-be.online/v1` làm base URL. Nếu dùng workspace khác, hãy hỏi quản trị viên API URL và application key của workspace đó.
 
 <h2 id="review-model-and-request-behavior">Kiểm tra model và request</h2>
 
