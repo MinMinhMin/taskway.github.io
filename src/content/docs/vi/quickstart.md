@@ -43,11 +43,11 @@ npm install openai@7.30.1
 Trên macOS/Linux, export hai giá trị trong terminal sẽ chạy ví dụ:
 
 ```sh
-export TASKWAY_BASE_URL="https://taskway-ai-be.online/v1"
+export TASKWAY_BASE_URL="https://taskway-ai-be.onrender.com/v1"
 export TASKWAY_API_KEY="your_application_key"
 ```
 
-Với PowerShell, đặt `$env:TASKWAY_BASE_URL="https://taskway-ai-be.online/v1"` và `$env:TASKWAY_API_KEY="your_application_key"`.
+Với PowerShell, đặt `$env:TASKWAY_BASE_URL="https://taskway-ai-be.onrender.com/v1"` và `$env:TASKWAY_API_KEY="your_application_key"`.
 
 Không đưa key vào trang web, mã JavaScript chạy trong trình duyệt, repository công khai hay biến môi trường frontend được đưa xuống trình duyệt. Hãy lưu key trong secret store ở phía máy chủ.
 
